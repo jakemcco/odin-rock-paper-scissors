@@ -16,41 +16,44 @@ function getComputerChoice() {
 }
 
 
-function getPlayerChoice() {
-    const userInput = prompt('Please choose: Rock, Paper, or Scissors');
-    let cleanedUserInput;
-    let playerChoice;
+// function getPlayerChoice() {
+//     const userInput = prompt('Please choose: Rock, Paper, or Scissors');
+//     let cleanedUserInput;
+//     let playerChoice;
 
-    //Keep prompting until we get input
-    if (userInput === null || userInput === "") { 
-        return getPlayerChoice();
-    }
-    //Typecast input to string, convert to  lower-case, confirm valid input
-    else {
-        cleanedUserInput = (userInput.toString()).toLowerCase();
+//     //Keep prompting until we get input
+//     if (userInput === null || userInput === "") { 
+//         return getPlayerChoice();
+//     }
+//     //Typecast input to string, convert to  lower-case, confirm valid input
+//     else {
+//         cleanedUserInput = (userInput.toString()).toLowerCase();
 
-        switch (cleanedUserInput) {
-            case 'rock':
-                playerChoice = 'rock';
-                return playerChoice;
-                break;
-            case 'paper':
-                playerChoice = 'paper';
-                return playerChoice;
-                break;
-            case 'scissors':
-                playerChoice = 'scissors';
-                return playerChoice;
-                break;
-            default:
-                alert('Invalid input, please enter: Rock, Paper, or Scissors');
-                return getPlayerChoice();
-        }
-    }
-}
+//         switch (cleanedUserInput) {
+//             case 'rock':
+//                 playerChoice = 'rock';
+//                 return playerChoice;
+//                 break;
+//             case 'paper':
+//                 playerChoice = 'paper';
+//                 return playerChoice;
+//                 break;
+//             case 'scissors':
+//                 playerChoice = 'scissors';
+//                 return playerChoice;
+//                 break;
+//             default:
+//                 alert('Invalid input, please enter: Rock, Paper, or Scissors');
+//                 return getPlayerChoice();
+//         }
+//     }
+// }
 
 // Returns 0 if tie, 1 if computer wins, 2 if player wins
-function playRound(computerSelection = getComputerChoice(), playerSelection = getPlayerChoice()) {
+function playRound(inEvent){
+    const computerSelection = getComputerChoice();
+    const playerSelection = inEvent.target.classList[1]; // classList[0] is btn, classList[1] is 'rock', 'paper', or 'scissors'
+
     console.log('---------- Round start ----------');
     console.log('Computer has selected: '+ computerSelection);
     console.log('Player has selected: '+ playerSelection);
@@ -108,6 +111,7 @@ function game() {
     let playerScore = 0;
     let gameResult;
 
+    //Play a game consisting of 5 rounds
     for (let i = 0; i < 5; i++) {
         let roundWinner = playRound();
         switch (roundWinner){
@@ -133,11 +137,9 @@ function game() {
     console.log(`Final Score is --- Computer: ${computerScore}  Player: ${playerScore}. Game result: ${gameResult}`);
 }
 
-game();
+const buttons = Array.from(document.querySelectorAll('.btn'));
 
-
-// const computerSelection = getComputerChoice();
-// console.log('Computer has selected: '+ computerSelection);
-
-// const playerSelection = getPlayerChoice();
-// console.log('Player has selected: '+ playerSelection);
+buttons.forEach(button => button.addEventListener('click', function(e){
+    playRound(e);
+    }
+));
