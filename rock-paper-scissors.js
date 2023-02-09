@@ -54,13 +54,26 @@ function playRound(inEvent){
     const computerSelection = getComputerChoice();
     const playerSelection = inEvent.target.classList[1]; // classList[0] is btn, classList[1] is 'rock', 'paper', or 'scissors'
 
+    const computerSelectionDiv = document.querySelector('.computer-selection');
+    const playerSelectionDiv = document.querySelector('.player-selection');
+    const roundResultDiv = document.querySelector('.round-result');
+
+    //Clear previous results
+    computerSelectionDiv.textContent ="";
+    playerSelectionDiv.textContent ="";
+    roundResultDiv.textContent="";
+
     console.log('---------- Round start ----------');
     console.log('Computer has selected: '+ computerSelection);
+    computerSelectionDiv.textContent = `Computer has selected: ${computerSelection}`;
     console.log('Player has selected: '+ playerSelection);
+    playerSelectionDiv.textContent = `Player has selected: ${playerSelection}`;
+
 
     //First test for tie
     if (computerSelection === playerSelection) {
         console.log('Round result: tie');
+        roundResultDiv.textContent = 'Round result: Tie!';
         return 0;
     }
     
@@ -69,10 +82,12 @@ function playRound(inEvent){
         case 'rock':
             if (playerSelection === 'paper'){
                 console.log('Round result: Player Wins');
+                roundResultDiv.textContent = 'Round result: Player Wins';
                 return 2;
             }
             else if (playerSelection === 'scissors'){
                 console.log('Round result: Computer Wins');
+                roundResultDiv.textContent = 'Round result: Computer Wins';
                 return 1;
             }
             break;
@@ -80,10 +95,12 @@ function playRound(inEvent){
         case 'paper':
             if (playerSelection === 'rock'){
                 console.log('Round result: Computer Wins');
+                roundResultDiv.textContent = 'Round result: Computer Wins';
                 return 1;
             }
             else if (playerSelection === 'scissors'){
                 console.log('Round result: Player Wins');
+                roundResultDiv.textContent = 'Round result: Player Wins';
                 return 2;
             }
             break;
@@ -91,10 +108,12 @@ function playRound(inEvent){
         case 'scissors':
             if (playerSelection === 'paper'){
                 console.log('Round result: Computer Wins');
+                roundResultDiv.textContent = 'Round result: Computer Wins';
                 return 1;
             }
             else if (playerSelection === 'rock'){
                 console.log('Round result: Player Wins');
+                roundResultDiv.textContent = 'Round result: Player Wins';
                 return 2;
             }
             break;
@@ -142,4 +161,6 @@ const buttons = Array.from(document.querySelectorAll('.btn'));
 buttons.forEach(button => button.addEventListener('click', function(e){
     playRound(e);
     }
+
+
 ));
